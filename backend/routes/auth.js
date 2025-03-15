@@ -42,7 +42,7 @@ const verifyToken = (req, res, next) => {
 // ✅ Register a new user with profile picture upload
 router.post("/register", upload.single("profilePic"), async (req, res) => {
     const { name, email, password } = req.body;
-    const profilePic = req.file ? `/uploads/${req.file.filename}` : ""; // Store file path
+    const profilePic = req.file ? `/uploads/${req.file.filename}` : "";  // Added leading "/"
 
     try {
         const hashedPassword = await bcrypt.hash(password, 10);

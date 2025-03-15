@@ -18,9 +18,8 @@ app.use(cors({
     credentials: true
 }));
 
-// Serve uploaded images
+// ✅ Serve images from the "uploads" folder
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-
 app.use("/api/auth", authRoutes);
 
 mongoose.connect(process.env.MONGO_URI, {

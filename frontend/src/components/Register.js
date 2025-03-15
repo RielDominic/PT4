@@ -70,7 +70,7 @@ const Register = () => {
                                 <label htmlFor="profilePicInput" style={styles.profilePicLabel}>
                                     <div style={styles.profilePicCircle}>
                                         {profilePic ? (
-                                            <img src={profilePic} alt="Profile" style={styles.profilePic} />
+                                            <img src={`http://localhost:5000/${profilePic}`} alt="Profile" style={styles.profilePic} />
                                         ) : (
                                             <span style={styles.profilePicPlaceholder}>+</span>
                                         )}

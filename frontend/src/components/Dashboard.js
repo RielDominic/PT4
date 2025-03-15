@@ -45,7 +45,7 @@ const Dashboard = () => {
                                     <tr key={index}>
                                         <td style={styles.tableCell}>{user.name}</td>
                                         <td style={styles.tableCell}>{user.email}</td>
-                                        <td style={styles.tableCell}>{user.profilePic}</td>
+                                        <td style={styles.tableCell}><img src={user.profilePic} width="80" height="80" alt="Profile Picture"></img></td>
                                     </tr>
                                 ))}
                             </tbody>
