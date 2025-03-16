@@ -1,35 +1,48 @@
 ﻿const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-const dotenv = require("dotenv");
-const cookieParser = require("cookie-parser");
-const authRoutes = require("./routes/auth");
+const multer = require("multer");
 const path = require("path");
-
-dotenv.config();
+const mongoose = require("mongoose");
 
 const app = express();
 app.use(express.json());
-app.use(cookieParser());
 
-// Enable CORS for frontend communication
-app.use(cors({ 
-    origin: "http://localhost:3000", 
-    credentials: true
-}));
+// Serve uploaded images statically
+app.use("/uploads", express.static("uploads"));
 
-// ✅ Serve images from the "uploads" folder
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-app.use("/api/auth", authRoutes);
+// Multer setup for storing images
+const storage = multer.diskStorage({
+    destination: "./uploads/",
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname)); // Unique filename
+    },
+});
 
-mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => console.log("MongoDB Connected"))
-.catch(err => console.log(err));
+const upload = multer({ storage });
+
+// MongoDB Schema
+const UserSchema = new mongoose.Schema({
+    name: String,
+    email: String,
+    password: String,
+    profilePic: String, // Store image path, not the image itself
+});
+
+const User = mongoose.model("User", UserSchema);
+
+// Register Endpoint
+app.post("/api/auth/register", upload.single("profilePic"), async (req, res) => {
+    try {
+        const { name, email, password } = req.body;
+        const profilePic = req.file ? `/uploads/${req.file.filename}` : null;
+
+        const newUser = new User({ name, email, password, profilePic });
+        await newUser.save();
+
+        res.json({ message: "User registered successfully!", profilePic });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Registration failed" });
+    }
+});
 
 app.listen(5000, () => console.log("Server running on port 5000"));
-
-
-app.use(express.json()); // Ensure this line is here
-app.use(express.urlencoded({ extended: true })); // Also parse URL-encoded data

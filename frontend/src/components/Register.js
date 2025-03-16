@@ -8,13 +8,13 @@ const Register = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [profilePic, setProfilePic] = useState(null);
-    const navigate = useNavigate();
+    const [preview, setPreview] = useState(null);
     const [isVisible, setIsVisible] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         setTimeout(() => setIsVisible(true), 100);
 
-        // Ensure Google Fonts link is added only once
         const googleFontsLink = document.createElement("link");
         googleFontsLink.rel = "stylesheet";
         googleFontsLink.href = "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined";
@@ -25,28 +25,38 @@ const Register = () => {
         };
     }, []);
 
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setProfilePic(file); // Store the file for FormData
+            setPreview(URL.createObjectURL(file)); // Generate preview URL
+        }
+    };
+
     const handleRegister = async (e) => {
         e.preventDefault();
+
+        const formData = new FormData();
+        formData.append("name", name);
+        formData.append("email", email);
+        formData.append("password", password);
+        if (profilePic) {
+            formData.append("profilePic", profilePic);
+        }
+
         try {
-            await axios.post("http://localhost:5000/api/auth/register", {
-                name,
-                email,
-                password,
-                profilePic
+            const response = await axios.post("http://localhost:5000/api/auth/register", formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
             });
+
             alert("Registration successful! Please login.");
             navigate("/");
         } catch (err) {
             alert(err.response?.data?.error || "Registration failed");
         }
     };
-
-    const handleImageChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            setProfilePic(file); // Directly store the file
-        }
-    };    
 
     return (
         <div style={styles.pageBackground}>
@@ -60,7 +70,7 @@ const Register = () => {
                         <h2 style={styles.sideHeading}>Join us today!</h2>
                         <p style={styles.sideText}>Create an account and unlock amazing features.</p>
                     </div>
-                    
+
                     {/* Right: Register Form Container */}
                     <div style={styles.container}>
                         <h2 style={styles.heading}>Register</h2>
@@ -69,8 +79,8 @@ const Register = () => {
                             <div style={styles.profilePicContainer}>
                                 <label htmlFor="profilePicInput" style={styles.profilePicLabel}>
                                     <div style={styles.profilePicCircle}>
-                                        {profilePic ? (
-                                            <img src={`http://localhost:5000/${profilePic}`} alt="Profile" style={styles.profilePic} />
+                                        {preview ? (
+                                            <img src={preview} alt="Profile Preview" style={styles.profilePic} />
                                         ) : (
                                             <span style={styles.profilePicPlaceholder}>+</span>
                                         )}
@@ -85,7 +95,7 @@ const Register = () => {
                                     style={{ display: "none" }}
                                 />
                             </div>
-                            
+
                             <div style={styles.inputGroup}>
                                 <label style={styles.label}>Name:</label>
                                 <input
@@ -120,7 +130,7 @@ const Register = () => {
                                 />
                             </div>
                             <button type="submit" style={styles.registerButton}>Register</button>
-                            
+
                             {/* Already have an account? Login Link */}
                             <div style={styles.signUpContainer}>
                                 <span>Already have an account?</span>

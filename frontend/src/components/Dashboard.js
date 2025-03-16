@@ -8,7 +8,7 @@ const Dashboard = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get("http://localhost:5000/api/auth/users", {withCredentials: true})
+        axios.get("http://localhost:5000/api/auth/users", { withCredentials: true })
             .then(response => setUsers(response.data))
             .catch((error) => {
                 if (error.response?.status === 401) {
@@ -21,7 +21,7 @@ const Dashboard = () => {
     }, [navigate]);
 
     const handleLogout = async () => {
-        await axios.post("http://localhost:5000/api/auth/logout", {}, {withCredentials: true});
+        await axios.post("http://localhost:5000/api/auth/logout", {}, { withCredentials: true });
         navigate("/");
     }
 
@@ -29,7 +29,7 @@ const Dashboard = () => {
         <div style={styles.pageBackground}>
             <div style={styles.overlay}>
                 <div style={styles.dash_container}>
-                    
+
                     <h2 style={styles.heading}>User Lists</h2>
                     <div style={styles.tableWrapper}>
                         <table style={styles.table}>
@@ -45,7 +45,14 @@ const Dashboard = () => {
                                     <tr key={index}>
                                         <td style={styles.tableCell}>{user.name}</td>
                                         <td style={styles.tableCell}>{user.email}</td>
-                                        <td style={styles.tableCell}><img src={user.profilePic} width="80" height="80" alt="Profile Picture"></img></td>
+                                        <td style={styles.tableCell}>
+                                            <img
+                                                src={`http://localhost:5000${user.profilePic}`} 
+                                                width="80"
+                                                height="80"
+                                                alt="Profile Picture"
+                                            />
+                                        </td>
                                     </tr>
                                 ))}
                             </tbody>
