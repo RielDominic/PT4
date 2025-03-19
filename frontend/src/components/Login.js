@@ -1,7 +1,11 @@
-﻿import React, { useState, useEffect } from 'react'; 
+﻿import React,{ useState, useEffect } from 'react'; 
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import styles from "./styles";
+import facebook from '../assets/facebook.png';
+import social from '../assets/social.png';
+import linkedin from '../assets/linkedin.png';
+
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -10,9 +14,16 @@ const Login = () => {
     const navigate = useNavigate();
     const [isVisible, setIsVisible] = useState(false);
 
+    // ✅ Load saved email if "Remember Me" was previously selected
     useEffect(() => {
         setTimeout(() => setIsVisible(true), 100);
-        
+
+        const savedEmail = localStorage.getItem("rememberedEmail");
+        if (savedEmail) {
+            setEmail(savedEmail);
+            setRememberMe(true);
+        }
+
         // Ensure Google Fonts link is added only once
         const googleFontsLink = document.createElement("link");
         googleFontsLink.rel = "stylesheet";
@@ -40,6 +51,14 @@ const Login = () => {
             );
 
             console.log('Login successful:', response.data);
+
+            // ✅ Save email to localStorage if "Remember Me" is checked
+            if (rememberMe) {
+                localStorage.setItem("rememberedEmail", email);
+            } else {
+                localStorage.removeItem("rememberedEmail");
+            }
+
             const confirmed = window.confirm("Login successful! Click OK to continue to dashboard.");
             if (confirmed) navigate("/dashboard");
 
@@ -53,14 +72,13 @@ const Login = () => {
         <div style={styles.pageBackground}>
             <div style={styles.overlay}>
                 <div style={{ 
-                    ...styles.containerWrapper,  // New wrapper for flexibility
+                    ...styles.containerWrapper,  
                     ...(isVisible ? styles.containerVisible : {}) 
                 }}>
                     {/* Left: Secondary Container (Image/Info) */}
                     <div style={styles.secondaryContainer}>
                         <h2 style={styles.sideHeading}>Welcome Back!</h2>
                         <p style={styles.sideText}>Log in to continue and explore.</p>
-                        {/* You can add an image/logo here */}
                     </div>
 
                     {/* Right: Login Form Container */}
@@ -112,13 +130,13 @@ const Login = () => {
                             <hr style={styles.divider} />
                             <div style={styles.socialLoginContainer}>
                                 <div style={styles.socialCircle}>
-                                    <img src="https://img.icons8.com/?size=100&id=118489&format=png&color=000000" alt="Facebook" style={styles.socialIcon} />
+                                    <img src={facebook}alt="Facebook" style={styles.socialIcon} />
                                 </div>
                                 <div style={styles.socialCircle}>
-                                    <img src="https://img.icons8.com/?size=100&id=85795&format=png&color=000000" alt="Google" style={styles.socialIcon} />
+                                    <img src={social} alt="Google" style={styles.socialIcon} />
                                 </div>
                                 <div style={styles.socialCircle}>
-                                    <img src="https://img.icons8.com/?size=100&id=85141&format=png&color=000000" alt="LinkedIn" style={styles.socialIcon} />
+                                    <img src={linkedin} alt="LinkedIn" style={styles.socialIcon} />
                                 </div>
                             </div>
                             <div style={styles.signUpContainer}>

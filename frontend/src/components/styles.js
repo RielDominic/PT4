@@ -19,7 +19,7 @@ const styles = {
         alignItems: 'center',
         justifyContent: 'center',
         gap: '20px',
-        width: '970px',
+        width: '900px',
         height: '700px',
         background: 'white',
         borderRadius: '20px',
