@@ -1,0 +1,9 @@
+to install dependencies use npm install on each folder
+
+cd backend
+
+npm install
+
+cd frontend
+
+npm install
