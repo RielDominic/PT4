@@ -1,10 +1,11 @@
-﻿import React,{ useState, useEffect } from 'react'; 
+﻿import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import styles from "./styles";
 import facebook from '../assets/facebook.png';
 import social from '../assets/social.png';
 import linkedin from '../assets/linkedin.png';
+
 
 
 const Login = () => {
@@ -45,8 +46,8 @@ const Login = () => {
 
         try {
             const response = await axios.post(
-                "http://localhost:5000/api/auth/login", 
-                { email, password }, 
+                "http://localhost:5000/api/auth/login",
+                { email, password },
                 { withCredentials: true }
             );
 
@@ -71,9 +72,9 @@ const Login = () => {
     return (
         <div style={styles.pageBackground}>
             <div style={styles.overlay}>
-                <div style={{ 
-                    ...styles.containerWrapper,  
-                    ...(isVisible ? styles.containerVisible : {}) 
+                <div style={{
+                    ...styles.containerWrapper,
+                    ...(isVisible ? styles.containerVisible : {})
                 }}>
                     {/* Left: Secondary Container (Image/Info) */}
                     <div style={styles.secondaryContainer}>
@@ -87,8 +88,8 @@ const Login = () => {
                         <form onSubmit={handleLogin} style={styles.form}>
                             <div style={styles.inputGroup}>
                                 <label style={styles.label}>Email:</label>
-                                <input 
-                                    type="email" 
+                                <input
+                                    type="email"
                                     style={styles.input}
                                     placeholder="Enter your email"
                                     value={email}
@@ -98,7 +99,7 @@ const Login = () => {
                             </div>
                             <div style={styles.inputGroup}>
                                 <label style={styles.label}>Password:</label>
-                                <input 
+                                <input
                                     type="password"
                                     style={styles.input}
                                     placeholder="Enter your password"
@@ -115,11 +116,11 @@ const Login = () => {
                             </div>
                             {/* Remember Me Checkbox */}
                             <div style={styles.checkboxContainer}>
-                                <input 
-                                    type="checkbox" 
-                                    id="rememberMe" 
-                                    checked={rememberMe} 
-                                    onChange={(e) => setRememberMe(e.target.checked)} 
+                                <input
+                                    type="checkbox"
+                                    id="rememberMe"
+                                    checked={rememberMe}
+                                    onChange={(e) => setRememberMe(e.target.checked)}
                                     style={styles.checkbox}
                                 />
                                 <label htmlFor="rememberMe" style={styles.checkboxLabel}>Remember Me</label>
@@ -130,9 +131,9 @@ const Login = () => {
                             <hr style={styles.divider} />
                             <div style={styles.socialLoginContainer}>
                                 <div style={styles.socialCircle}>
-                                    <img src={facebook}alt="Facebook" style={styles.socialIcon} />
+                                    <img src={facebook} alt="Facebook" style={styles.socialIcon} />
                                 </div>
-                                <div style={styles.socialCircle}>
+                                <div style={styles.socialCircle} onClick={() => window.location.href = "http://localhost:5000/api/auth/google"}>
                                     <img src={social} alt="Google" style={styles.socialIcon} />
                                 </div>
                                 <div style={styles.socialCircle}>

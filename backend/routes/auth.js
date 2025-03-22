@@ -64,12 +64,20 @@ router.post("/register", upload.single("profilePic"), async (req, res) => {
 router.post("/login", async (req, res) => {
     try {
         const { email, password } = req.body;
-        
+
         const user = await User.findOne({ email });
+
         if (!user) {
             return res.status(400).json({ error: "User not found" });
         }
-        
+
+        console.log("User found:", user); // 🔍 Debugging: Check user data
+
+        // Check if the user has a password (especially if they registered via Google)
+        if (!user.password) {
+            return res.status(400).json({ error: "This account does not have a password. Try logging in with Google." });
+        }
+
         const validPassword = await bcrypt.compare(password, user.password);
         if (!validPassword) {
             return res.status(400).json({ error: "Invalid password" });
@@ -87,8 +95,9 @@ router.post("/login", async (req, res) => {
             message: "Login successful",
             user: { name: user.name, email: user.email }
         });
+
     } catch (error) {
-        console.error('Login error:', error);
+        console.error("Login error:", error);
         res.status(500).json({ error: "Login failed. Please try again." });
     }
 });
@@ -106,6 +115,72 @@ router.get("/users", verifyToken, async (req, res) => {
 // ✅ Logout user
 router.post("/logout", (req, res) => {
     res.clearCookie("token").json({ message: "Logout successful" });
+});
+
+module.exports = router;
+
+
+//Google Login
+const passport = require("passport");
+
+// ✅ Google authentication route
+router.get("/google",
+  passport.authenticate("google", {
+    scope: ["profile", "email"],
+    prompt: "select_account" // ✅ Forces Google to ask for account selection
+  })
+);
+
+
+// ✅ Google OAuth callback route
+router.get("/google/callback", 
+    passport.authenticate("google", { session: false }), // Disable session-based auth
+    async (req, res) => {
+      try {
+        const user = req.user; // Get authenticated user
+  
+        if (!user) {
+          return res.redirect("http://localhost:3000/login");
+        }
+  
+        // ✅ Generate a JWT token
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
+  
+        // ✅ Set the token as an HTTP-only cookie
+        res.cookie("token", token, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+          sameSite: "lax",
+          maxAge: 3600000,
+          path: "/"
+        });
+  
+        // ✅ Redirect to dashboard after setting the token
+        res.redirect("http://localhost:3000/dashboard");
+      } catch (error) {
+        console.error("Google Auth Error:", error);
+        res.redirect("http://localhost:3000/login");
+      }
+    }
+  );
+  
+
+// ✅ Fixed Logout Route (Handles Errors and Session Destroy)
+router.get("/logout", (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err); // Handle any error
+    }
+    req.session.destroy(() => {
+      res.clearCookie("connect.sid"); // Ensure session cookie is removed
+      res.redirect("http://localhost:3000"); // Redirect to homepage/login
+    });
+  });
+});
+
+// ✅ Get logged-in user data
+router.get("/user", (req, res) => {
+  res.send(req.user || null);
 });
 
 module.exports = router;

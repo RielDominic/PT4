@@ -47,10 +47,13 @@ const Dashboard = () => {
                                         <td style={styles.tableCell}>{user.email}</td>
                                         <td style={styles.tableCell}>
                                             <img
-                                                src={`http://localhost:5000${user.profilePic}`} 
+                                                src={user.profilePic.startsWith("http")
+                                                    ? user.profilePic // ✅ If `profilePic` is a link, use it
+                                                    : `http://localhost:5000${user.profilePic}`} // ✅ Otherwise, use local upload
                                                 width="80"
                                                 height="80"
                                                 alt="Profile Picture"
+                                                style={{ borderRadius: "50%" }} // ✅ Make circular
                                             />
                                         </td>
                                     </tr>
