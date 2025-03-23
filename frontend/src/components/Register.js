@@ -1,7 +1,7 @@
 ﻿import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
-import styles from "./styles";
+import styles from "../css/styles";
 
 const Register = () => {
     const [name, setName] = useState("");

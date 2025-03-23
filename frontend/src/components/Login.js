@@ -1,7 +1,7 @@
 ﻿import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
-import styles from "./styles";
+import styles from "../css/styles";
 import facebook from '../assets/facebook.png';
 import social from '../assets/social.png';
 import linkedin from '../assets/linkedin.png';
