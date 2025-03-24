@@ -205,7 +205,6 @@ const styles = {
     },
 
     signUpContainer: {
-        marginTop: '15px',
         textAlign: 'center',
         fontSize: '14px',
         marginTop: '-10px',

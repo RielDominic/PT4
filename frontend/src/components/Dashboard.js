@@ -1,6 +1,7 @@
 ﻿import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import DarkModeToggle from '../js/darkMode'; // Adjust the path as necessary
 import '../css/styles.css'; // Ensure the path is correct
 
 const Dashboard = () => {
@@ -40,14 +41,16 @@ const Dashboard = () => {
 };
 
 const Navbar = ({ handleLogout }) => {
+    const navigate = useNavigate(); // Add this inside Navbar
     return (
         <div className="navbar">
             <a href="/" className="logo">
                 <img src="/logo.png" alt="FriendZone Logo" />
             </a>
             <div class="search-container">
-                <input class="search" type="text" placeholder="Search" />
+                <input id="searchInput" class="search" type="text" placeholder="Search" />
                 <span class="material-symbols-outlined search-icon">search</span>
+                <div id="searchResults" class="dropdown"></div>
             </div>
 
             <div className="nav-links">
@@ -67,13 +70,13 @@ const Navbar = ({ handleLogout }) => {
                 </div>
                 <a href="/messages"><span className="material-symbols-outlined">message</span></a>
                 <div className="dropdown">
-                    <button className="dropbtn">
+                    <button className="dropbtn" onClick={() => navigate("/profile")}>
                         <span className="material-symbols-outlined">account_circle</span>
                     </button>
                     <div className="dropdown-content">
                         <a href="/settings"><span className="material-symbols-outlined">settings</span> Settings & Privacy</a>
                         <a href="/help"><span className="material-symbols-outlined">help</span> Help & Support</a>
-                        <a href="#" id="darkModeToggle"><span className="material-symbols-outlined">dark_mode</span> Display Accessibility</a>
+                        <DarkModeToggle />
                         <a href="/" title="Logout" onClick={handleLogout}>
                             <span className="material-symbols-outlined">logout</span> Logout
                         </a>

@@ -182,5 +182,28 @@ router.get("/logout", (req, res, next) => {
 router.get("/user", (req, res) => {
   res.send(req.user || null);
 });
+router.get("/profile", verifyToken, async (req, res) => {
+  try {
+      const user = await User.findById(req.user.id).select("-password"); // Exclude password
+      if (!user) return res.status(404).json({ message: "User not found" });
+      res.json(user);
+  } catch (error) {
+      res.status(500).json({ message: "Server error" });
+  }
+});
+const jwt = require("jsonwebtoken");
+
+module.exports = function (req, res, next) {
+    const token = req.cookies.token; // Token from cookies
+    if (!token) return res.status(401).json({ message: "Unauthorized" });
+
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        req.user = decoded; // Attach user data to request
+        next();
+    } catch (error) {
+        res.status(400).json({ message: "Invalid token" });
+    }
+};
 
 module.exports = router;

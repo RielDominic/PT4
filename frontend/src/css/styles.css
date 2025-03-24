@@ -1,8 +1,13 @@
 /* Set background image */
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap');
-
-
-
+body{
+    background: #f0f2f5;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: background-color 1s, color 1s; /* Added transition */
+}
 .dark-mode h2 {
     color: rgb(0, 0, 0);
 }
@@ -14,7 +19,7 @@
     align-items: center;
     background-color: #333;
     border-bottom: 2px solid #464646;
-    padding: 10px 20px;
+    padding: 0 3px;
 }
 
 /* Logo */
@@ -37,7 +42,7 @@
 
 .search {
     width: 180px;
-    padding: 10px 20px 2px 5px;
+    padding: 2px 20px 2px 5px;
     border: none;
     border-radius: 5px;
     outline: none;
@@ -66,35 +71,30 @@
     transition: all 0.4s ease;
 }
 
-.navbar .nav-links a:hover {
-    background-color: #ddd;
-    color: black;
-    z-index: 2;
-    transform: scale(1.1)
-}
-
 /* Right-side Icons (Notifications, Messages, Profile) */
-.nav-right {
+.navbar .nav-right {
     display: flex;
     align-items: center;
     gap: 15px;
 }
 
-/* Ensure icons are white */
-.nav-right a span.material-symbols-outlined {
-    color: white !important;
-    font-size: 24px;
-    cursor: pointer;
-    transition: all 0.4s ease;
-    padding: 24px 20px; /* Same padding as .nav-links */
+.navbar .nav-right a {
+    display: flex;
+    align-items: center;
     text-decoration: none;
+    padding: 20px; /* Matches nav-links */
+    color: white;
+    transition: all 0.4s ease;
 }
 
-/* 🔹 Exact Same Hover Effect as Nav-Links */
-.nav-right a:hover {
+/* 🔹 Universal Hover Effect (Nav-Links, Nav-Right, Dropdown) */
+.navbar .nav-links a:hover,
+.navbar .nav-right a:hover,
+.dropdown .dropbtn:hover,
+.dropdown-content a:hover {
     background-color: #ddd;
     color: black;
-    transform: scale(1.2);
+    transform: scale(1.0);
 }
 
 /* Dropdown Menu */
@@ -113,16 +113,10 @@
     transition: all 0.4s ease;
 }
 
-.dropdown:hover .dropbtn {
-    background-color: #dddd;
-    color: black;
-    transform: scale(1.1);
-}
-
 /* Dropdown Content */
 .dropdown-content {
     position: absolute;
-    right: 0; /* Align dropdown to the right */
+    right: 0;
     background: #212121;
     min-width: 180px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -149,16 +143,51 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    transition: background 0.3s;
+    transition: all 0.3s ease;
 }
-
-.dropdown-content a:hover {
-    background: #ffffff9f;
+.dropdown-content p {
+    color: #ffff;
+    padding: 12px;
+    text-align: center;
+    margin: 0;
 }
 
 /* Dropdown Icons */
 .dropdown-content .material-symbols-outlined {
     font-size: 22px;
+    color: white;
+    transition: color 0.3s ease; /* Smooth transition */
+}
+
+/* 🔹 Ensure dropdown icon color changes on hover */
+.dropdown-content a:hover .material-symbols-outlined {
+    color: black; /* Match the text color on hover */
+}
+
+/* Ensure entire dropdown link is clickable (not just span) */
+.dropdown-content a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+
+
+.searchdown {
+    position: absolute;
+    width: 200px;
+    background: white;
+    border: 1px solid #ccc;
+    display: none;
+    max-height: 200px;
+    overflow-y: auto;
+}
+.searchdown div {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+.searchdown div:hover {
+    background: #f0f0f0;
 }
 
 /* Animation class for the icon */
@@ -170,12 +199,7 @@
 body.dark-mode {
     background-color: #333;
     color: #fff;
-}
-
-body.dark-mode footer {
-    background-color: #333;
-    color: white;
-    transition: background-color 2.5s, color 2.5s; /* Added transition */
+    transition: background-color 1s, color 1s; /* Added transition */
 }
 a.dark-mode {
     color: #fff;

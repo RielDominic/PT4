@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Dashboard from "./components/Dashboard";
+import Profile from "./components/profile"; // Import Profile Component
 import PrivateRoute from "./components/privateroute";
 
 function App() {
@@ -15,6 +16,15 @@ function App() {
                     element={
                         <PrivateRoute>
                             <Dashboard />
+                        </PrivateRoute>
+                    } 
+                />
+                {/* Add Profile Route */}
+                <Route 
+                    path="/profile" 
+                    element={
+                        <PrivateRoute>
+                            <Profile />
                         </PrivateRoute>
                     } 
                 />
