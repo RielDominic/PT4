@@ -7,9 +7,11 @@ const Register = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
     const [profilePic, setProfilePic] = useState(null);
     const [preview, setPreview] = useState(null);
     const [isVisible, setIsVisible] = useState(false);
+    const [setError] = useState("");
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -28,13 +30,20 @@ const Register = () => {
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-            setProfilePic(file); // Store the file for FormData
-            setPreview(URL.createObjectURL(file)); // Generate preview URL
+            setProfilePic(file);
+            setPreview(URL.createObjectURL(file));
         }
     };
 
     const handleRegister = async (e) => {
         e.preventDefault();
+
+        if (password !== confirmPassword) {
+            alert("Passwords do not match!"); 
+            return;
+        }
+
+        setError(""); // Clear previous errors
 
         const formData = new FormData();
         formData.append("name", name);
@@ -65,7 +74,7 @@ const Register = () => {
                     ...styles.containerWrapper,
                     ...(isVisible ? styles.containerVisible : {})
                 }}>
-                    {/* Left: Secondary Container (Image/Info) */}
+                    {/* Left: Secondary Container */}
                     <div style={styles.secondaryContainer}>
                         <h2 style={styles.sideHeading}>Join us today!</h2>
                         <p style={styles.sideText}>Create an account and unlock amazing features.</p>
@@ -95,7 +104,7 @@ const Register = () => {
                                     style={{ display: "none" }}
                                 />
                             </div>
-
+                            {/* Name Field */}
                             <div style={styles.inputGroup}>
                                 <label style={styles.label}>Name:</label>
                                 <input
@@ -107,6 +116,8 @@ const Register = () => {
                                     required
                                 />
                             </div>
+
+                            {/* Email Field */}
                             <div style={styles.inputGroup}>
                                 <label style={styles.label}>Email:</label>
                                 <input
@@ -118,6 +129,8 @@ const Register = () => {
                                     required
                                 />
                             </div>
+
+                            {/* Password Field */}
                             <div style={styles.inputGroup}>
                                 <label style={styles.label}>Password:</label>
                                 <input
@@ -129,6 +142,20 @@ const Register = () => {
                                     required
                                 />
                             </div>
+
+                            {/* Confirm Password Field */}
+                            <div style={styles.inputGroup}>
+                                <label style={styles.label}>Confirm Password:</label>
+                                <input
+                                    type="password"
+                                    style={styles.input}
+                                    placeholder="Confirm your password"
+                                    value={confirmPassword}
+                                    onChange={(e) => setConfirmPassword(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            {/* Submit Button */}
                             <button type="submit" style={styles.registerButton}>Register</button>
 
                             {/* Already have an account? Login Link */}
