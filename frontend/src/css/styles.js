@@ -89,7 +89,8 @@ const styles = {
     inputGroup: {
         display: 'flex',
         flexDirection: 'column',
-        gap: '8px',
+        gap: '5px',
+        marginBottom: '-3px',
     },
     label: {
         color: '#333333',
@@ -124,7 +125,7 @@ const styles = {
         borderRadius: "4px",
         fontSize: "16px",
         cursor: "pointer",
-        marginTop: "10px",
+        marginTop: "-5px",
         width: "100%",
         display: "flex",
         alignItems: "center",
@@ -207,6 +208,7 @@ const styles = {
         marginTop: '15px',
         textAlign: 'center',
         fontSize: '14px',
+        marginTop: '-10px',
     },
 
     signUpLink: {
@@ -239,7 +241,7 @@ const styles = {
         alignItems: "center", // Vertically center
         flexDirection: "column", // Stack elements
         width: "100%", // Ensure it takes full width
-        marginBottom: "5px",
+
     },
     profilePicLabel: {
         cursor: "pointer",
@@ -255,7 +257,7 @@ const styles = {
         justifyContent: "center",
         overflow: "hidden",
         backgroundColor: "#f5f5f5",
-        margin: "auto", // Center within a block container
+
     },
     profilePic: {
         width: "100%",

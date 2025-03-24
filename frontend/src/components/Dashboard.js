@@ -39,41 +39,6 @@ const Dashboard = () => {
     );
 };
 
-<<<<<<< Updated upstream
-                    <h2 style={styles.heading}>User Lists</h2>
-                    <div style={styles.tableWrapper}>
-                        <table style={styles.table}>
-                            <thead>
-                                <tr>
-                                    <th style={styles.tableHeader}>Name</th>
-                                    <th style={styles.tableHeader}>Email</th>
-                                    <th style={styles.tableHeader}>Profile Picture</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {users.map((user, index) => (
-                                    <tr key={index}>
-                                        <td style={styles.tableCell}>{user.name}</td>
-                                        <td style={styles.tableCell}>{user.email}</td>
-                                        <td style={styles.tableCell}>
-                                            <img
-                                                src={user.profilePic.startsWith("http")
-                                                    ? user.profilePic // ✅ If `profilePic` is a link, use it
-                                                    : `http://localhost:5000${user.profilePic}`} // ✅ Otherwise, use local upload
-                                                width="80"
-                                                height="80"
-                                                alt="Profile Picture"
-                                                style={{ borderRadius: "50%" }} // ✅ Make circular
-                                            />
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-                    <button onClick={handleLogout} style={styles.button}>
-                        Logout
-=======
 const Navbar = ({ handleLogout }) => {
     return (
         <div className="navbar">
@@ -95,7 +60,6 @@ const Navbar = ({ handleLogout }) => {
                 <div className="dropdown">
                     <button className="dropbtn">
                         <span className="material-symbols-outlined">notifications</span>
->>>>>>> Stashed changes
                     </button>
                     <div className="dropdown-content">
                         <p>Notifications</p>
