@@ -42,21 +42,45 @@ const verifyToken = (req, res, next) => {
 // ✅ Register a new user with profile picture upload
 router.post("/register", upload.single("profilePic"), async (req, res) => {
     const { name, email, password } = req.body;
-    const profilePic = req.file ? `/uploads/${req.file.filename}` : "";  // Added leading "/"
+    const profilePic = req.file ? `/uploads/${req.file.filename}` : "";
 
     try {
+        // 1. Check for existing user
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            if (req.file) fs.unlinkSync(req.file.path);
+            return res.status(409).json({ 
+                success: false,
+                message: "DUPLICATE_ACCOUNT" // Special identifier
+            });
+        }
+
+        // 2. Create new user
         const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = new User({
-            name,
-            email,
-            password: hashedPassword,
-            profilePic
+        const newUser = new User({ name, email, password: hashedPassword, profilePic });
+        await newUser.save();
+
+        res.json({ 
+            success: true,
+            message: "REGISTRATION_SUCCESS"
         });
 
-        await newUser.save();
-        res.json({ message: "User registered successfully" });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        // Clean up uploaded file if exists
+        if (req.file) fs.unlinkSync(req.file.path);
+
+        // Handle duplicate key error
+        if (error.code === 11000) {
+            return res.status(409).json({
+                success: false,
+                message: "DUPLICATE_ACCOUNT"
+            });
+        }
+
+        res.status(500).json({ 
+            success: false,
+            message: "REGISTRATION_FAILED"
+        });
     }
 });
 
@@ -191,19 +215,25 @@ router.get("/profile", verifyToken, async (req, res) => {
       res.status(500).json({ message: "Server error" });
   }
 });
-const jwt = require("jsonwebtoken");
 
-module.exports = function (req, res, next) {
-    const token = req.cookies.token; // Token from cookies
-    if (!token) return res.status(401).json({ message: "Unauthorized" });
-
+// ✅ Get current user data (add this with your other routes)
+router.get("/me", verifyToken, async (req, res) => {
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = decoded; // Attach user data to request
-        next();
+        const user = await User.findById(req.userId).select("-password"); // Exclude password
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+        
+        res.json({
+            id: user._id,
+            name: user.name,
+            email: user.email,
+            profilePic: user.profilePic
+            // Add any other public fields you need
+        });
     } catch (error) {
-        res.status(400).json({ message: "Invalid token" });
+        console.error("Error in /me endpoint:", error);
+        res.status(500).json({ error: "Server error while fetching user data" });
     }
-};
+});
 
-module.exports = router;

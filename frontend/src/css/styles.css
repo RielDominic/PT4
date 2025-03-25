@@ -1,13 +1,16 @@
 /* Set background image */
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap');
-body{
+
+body {
     background: #f0f2f5;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    transition: background-color 1s, color 1s; /* Added transition */
+    transition: background-color 1s, color 1s;
+    /* Added transition */
 }
+
 .dark-mode h2 {
     color: rgb(0, 0, 0);
 }
@@ -82,7 +85,8 @@ body{
     display: flex;
     align-items: center;
     text-decoration: none;
-    padding: 20px; /* Matches nav-links */
+    padding: 20px;
+    /* Matches nav-links */
     color: white;
     transition: all 0.4s ease;
 }
@@ -119,7 +123,7 @@ body{
     right: 0;
     background: #212121;
     min-width: 180px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     opacity: 0;
     transform: translateY(-10px);
     transition: all 0.3s ease;
@@ -145,6 +149,7 @@ body{
     gap: 10px;
     transition: all 0.3s ease;
 }
+
 .dropdown-content p {
     color: #ffff;
     padding: 12px;
@@ -156,12 +161,14 @@ body{
 .dropdown-content .material-symbols-outlined {
     font-size: 22px;
     color: white;
-    transition: color 0.3s ease; /* Smooth transition */
+    transition: color 0.3s ease;
+    /* Smooth transition */
 }
 
 /* 🔹 Ensure dropdown icon color changes on hover */
 .dropdown-content a:hover .material-symbols-outlined {
-    color: black; /* Match the text color on hover */
+    color: black;
+    /* Match the text color on hover */
 }
 
 /* Ensure entire dropdown link is clickable (not just span) */
@@ -181,11 +188,13 @@ body{
     max-height: 200px;
     overflow-y: auto;
 }
+
 .searchdown div {
     padding: 10px;
     cursor: pointer;
     border-bottom: 1px solid #eee;
 }
+
 .searchdown div:hover {
     background: #f0f0f0;
 }
@@ -199,11 +208,14 @@ body{
 body.dark-mode {
     background-color: #333;
     color: #fff;
-    transition: background-color 1s, color 1s; /* Added transition */
+    transition: background-color 1s, color 1s;
+    /* Added transition */
 }
+
 a.dark-mode {
     color: #fff;
 }
+
 .toggle-btn {
     cursor: pointer;
 }
@@ -212,18 +224,17 @@ a.dark-mode {
 .stories-container {
     display: flex;
     align-items: center;
-    justify-content: center; /* Align items to the left */
-    padding: 24px 275px;
+    justify-content: center;
+    padding: 20px 275px;
     box-shadow: 2px 4px 6px 5px rgba(0, 0, 0, 0.1);
     max-width: 10%;
     border-radius: 10px;
-    overflow-x: hidden; /* Hide horizontal scrollbar */
-    overflow-y: hidden;
     scroll-snap-type: x mandatory;
     margin-left: 580px;
-    margin-top: 260px;
+    margin-top: 250px;
     background-color: #333;
 }
+
 .story.create-story {
     width: 120px;
     height: 180px;
@@ -244,18 +255,21 @@ a.dark-mode {
 
 /* Hover Effect */
 .story.create-story:hover {
-    transform: scale(1.05); /* Slight zoom effect */
+    transform: scale(1.05);
+    /* Slight zoom effect */
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 /* Plus Icon */
 .story.create-story::before {
-    content: "+"; /* Plus symbol */
+    content: "+";
+    /* Plus symbol */
     font-size: 32px;
     font-weight: bold;
     color: #333;
     top: 10px;
-    left: 10px; /* Adjusted to left for better alignment */
+    left: 10px;
+    /* Adjusted to left for better alignment */
     width: 70px;
     height: 35px;
     display: flex;
@@ -277,14 +291,16 @@ a.dark-mode {
 
 /* Click Animation */
 .story.create-story:active {
-    
+
     transform: scale(0.95);
 }
 
 /* Individual Stories */
 .story {
-    width: 100px; /* Adjust as needed */
-    height: 177.78px; /* Maintain 9:16 aspect ratio */
+    width: 100px;
+    /* Adjust as needed */
+    height: 177.78px;
+    /* Maintain 9:16 aspect ratio */
     margin: 5px;
     background: white;
     border-radius: 10px;
@@ -294,7 +310,8 @@ a.dark-mode {
     justify-content: center;
     cursor: pointer;
     text-align: center;
-    flex-shrink: 0; /* Prevents resizing in the container */
+    flex-shrink: 0;
+    /* Prevents resizing in the container */
 }
 
 /* Story Profile Image */
@@ -323,17 +340,20 @@ a.dark-mode {
     height: 100%;
     padding-left: 60px;
     background: rgba(0, 0, 0, 0.8);
-    display: none; /* Initially hidden */
+    display: none;
+    /* Initially hidden */
     justify-content: center;
     align-items: center;
-    z-index: 1000; /* Ensure it stays on top */
+    z-index: 1000;
+    /* Ensure it stays on top */
 }
 
 /* Story Viewer Content */
 .story-viewer-content {
     position: relative;
-    width: 90vw; /* Maintain aspect ratio */
-    height: 90vh; 
+    width: 90vw;
+    /* Maintain aspect ratio */
+    height: 90vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -343,12 +363,16 @@ a.dark-mode {
 /* Close Button */
 #closeViewer {
     position: absolute;
-    top: 600px; /* Adjust this to position the button from the top */
-    right: 700px; /* Adjust this to position the button from the right */
+    top: 600px;
+    /* Adjust this to position the button from the top */
+    right: 700px;
+    /* Adjust this to position the button from the right */
     font-size: 24px;
     cursor: pointer;
-    color: #000; /* Set the color of the close icon */
-    z-index: 1000; /* Ensure it appears above other content */
+    color: #000;
+    /* Set the color of the close icon */
+    z-index: 1000;
+    /* Ensure it appears above other content */
 }
 
 #closeViewer:hover {
@@ -356,7 +380,8 @@ a.dark-mode {
 }
 
 /* Navigation Buttons */
-#prevStoryView, #nextStoryView {
+#prevStoryView,
+#nextStoryView {
     position: absolute;
     top: 50%;
     color: white;
@@ -382,7 +407,8 @@ a.dark-mode {
 }
 
 /* Story Media */
-#viewerImage, #viewerVideo {
+#viewerImage,
+#viewerVideo {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
@@ -398,7 +424,7 @@ a.dark-mode {
 .post-creator {
     padding: 25px;
     margin-left: 580px;
-    margin-top: -530px;
+    margin-top: -515px;
     border-radius: 10px;
     box-shadow: 2px 4px 6px 5px rgba(0, 0, 0, 0.1);
     width: 100%;
@@ -408,55 +434,65 @@ a.dark-mode {
     color: white;
 }
 
+.image-preview {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+/* Input container */
+.input-container {
+    position: relative;
+    flex-grow: 1;
+}
+
+.captions {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 15px;
+    width: 80%;
+    border: 1px solid #3E4042;
+    border-radius: 20px;
+    background-color: #3A3B3C;
+    min-height: 40px;
+    padding: 10px 10px;
+    padding-right: 130px;
+    color: #E4E6EB;
+    margin-top: 10px;
+    margin-bottom: -50px;
+    outline: none;
+}
+
+/* Post button */
+.post-button {
+    position: relative;
+    left: 80px;
+    bottom: 30px;
+    color: white;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+/* Bottom buttons */
 .post-creator button {
     display: inline-flex;
-    align-items: center; /* Center icon and text vertically */
-    justify-content: center; /* Center content horizontally */
+    align-items: center;
+    justify-content: center;
     background-color: transparent;
     color: white;
     border: none;
-    padding: 10px 30px 5px;
-    gap: 8px; /* Space between icon and text */
+    padding: 10px 20px 5px;
+    gap: 10px;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    font-size: 16px; /* Adjust text size */
-    margin-right: 55px;
-}
-
-.post-creator button span {
-    font-variation-settings:
-      'FILL' 0,
-      'wght' 400,
-      'GRAD' 0,
-      'opsz' 24;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    font-size: 16px;
+    margin-right: 80px;
 }
 
 .post-creator button:hover {
     background-color: #555;
-    
-}
-
-.captions{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  /* Facebook's font */
-    font-size: 16px; /* Makes the text more readable */
-    width: 90%;  /* Ensures input takes up the full width of its container */
-    border: 2px solid #d1d1d1;  /* Light border for input field */
-    border-radius: 15px;  /* Rounded corners */
-    background-color: transparent;  /* Transparent background */
-    resize: none;  /* Prevents resizing of the textarea */
-    min-height: 80px;  /* Sets a minimum height */
-    margin-bottom: 15px;  /* Adds space below the input field */
-    margin-top: -590px;
-    color: #fff;
-}
-
-.captions::placeholder{
-    color: #ffffff;  /* Light gray placeholder text */
-    font-style: italic;  /* Italicized placeholder text */
 }
 
 #mediaInput {
@@ -467,9 +503,11 @@ a.dark-mode {
     align-items: left;
     font-size: 10px;
     color: #212121;
-    transition: background-color 1.5s, color 1.5s; /* Added transition */
+    transition: background-color 1.5s, color 1.5s;
+    /* Added transition */
 
 }
+
 .dark-mode #fileNameDisplay {
     color: #ffffff;
 }
@@ -480,33 +518,41 @@ a.dark-mode {
     cursor: pointer;
 
 }
+
 .file-upload-label:hover {
     background-color: #bdbdbd;
     border-radius: 5px;
     opacity: 1;
     transition: all 0.4s ease;
 }
+
 .dark-mode .file-upload-label:hover {
     background-color: #ffffff54;
     opacity: 0.8;
 }
 
 .file-upload-label .material-symbols-outlined {
-    color: #212121; /* Change this color as needed */
+    color: #212121;
+    /* Change this color as needed */
 }
+
 .dark-mode .file-upload-label .material-symbols-outlined {
-    color: #ffffff; /* Change this color as needed */
+    color: #ffffff;
+    /* Change this color as needed */
 }
 
 /* Posts Container */
 .posts-container {
     display: flex;
-    align-items: center;       /* Centers the posts vertically */
-    flex-direction: column;    /* Stacks posts vertically */
-    width: 100%;               /* Set the width to 100% to match the stories container */
+    align-items: center;
+    /* Centers the posts vertically */
+    flex-direction: column;
+    /* Stacks posts vertically */
+    width: 100%;
     padding: 20px;
-    max-width: 90%;            /* Ensure it's not too wide, similar to the stories container */
-    margin: 0 auto;            /* Centers the container */
+    max-width: 90%;
+    margin: 0 auto;
+    /* Centers the container */
 }
 
 .post {
@@ -514,16 +560,22 @@ a.dark-mode {
     margin-top: 10px;
     border-radius: 10px;
     box-shadow: 0 0 5px rgba(102, 102, 102, 0.5);
-    width: 32%; 
-    margin-left: 65px;              /* Makes the post take the full width of the container */
-    text-align: left;          /* Aligns text to the left */
+    width: 32%;
+    margin-left: 65px;
+    /* Makes the post take the full width of the container */
+    text-align: left;
+    /* Aligns text to the left */
 }
 
-.post img, .post video {
-    width: 100%;                /* Adjust the media width */
+.post img,
+.post video {
+    width: 100%;
+    /* Adjust the media width */
     border-radius: 5px;
-    margin: 10px auto;         /* Centers the media within the post */
-    display: block;            /* Ensures the image/video is centered */
+    margin: 10px auto;
+    /* Centers the media within the post */
+    display: block;
+    /* Ensures the image/video is centered */
 }
 
 /* Profile Image Preview */
@@ -531,11 +583,10 @@ a.dark-mode {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    border: #747474 1px solid;
+    border: 1px solid #747474;
     overflow: hidden;
-    margin-bottom: 15px;
-    margin-left: -10px;
-    flex-shrink: 0; /* Prevent shrinking */
+    flex-shrink: 0;
+    /* Prevent shrinking */
 }
 
 .image-preview img {
@@ -546,40 +597,56 @@ a.dark-mode {
 }
 
 #postText {
-    width: 100%; /* Full width of the container */
-    max-width: 450px; /* Set a reasonable max width */
-    height: 120px; /* Default height */
-    padding: 12px; /* Spacing inside the textarea */
-    border: 2px solid #ccc; /* Subtle border */
-    border-radius: 10px; /* Rounded corners */
-    font-size: 16px; /* Readable text size */
-    font-family: Arial, sans-serif; /* Clean font */
-    resize: none; /* Prevent resizing */
-    outline: none; /* Remove default focus outline */
+    width: 100%;
+    /* Full width of the container */
+    max-width: 450px;
+    /* Set a reasonable max width */
+    height: 120px;
+    /* Default height */
+    padding: 12px;
+    /* Spacing inside the textarea */
+    border: 2px solid #ccc;
+    /* Subtle border */
+    border-radius: 10px;
+    /* Rounded corners */
+    font-size: 16px;
+    /* Readable text size */
+    font-family: Arial, sans-serif;
+    /* Clean font */
+    resize: none;
+    /* Prevent resizing */
+    outline: none;
+    /* Remove default focus outline */
     transition: background-color 1.5s, color 1.5s;
 }
 
 /* Placeholder Text Styling */
 #postText::placeholder {
-    color: #888; /* Light gray placeholder text */
+    color: #888;
+    /* Light gray placeholder text */
     font-style: italic;
 }
 
 /* Focus Effect */
 #postText:focus {
-    border-color: #1b56a8; /* Highlight border on focus */
-    box-shadow: 0 0 8px rgba(27, 86, 168, 0.3); /* Soft glow effect */
-    
+    border-color: #1b56a8;
+    /* Highlight border on focus */
+    box-shadow: 0 0 8px rgba(27, 86, 168, 0.3);
+    /* Soft glow effect */
+
 }
+
 .dark-mode #postText {
     background-color: #333;
     color: white;
     border-color: #666;
-    
+
 }
+
 /* Story Upload Modal Styles */
 .modal {
-    display: none;  /* Hide by default */
+    display: none;
+    /* Hide by default */
     position: fixed;
     top: 0;
     left: 0;
@@ -608,12 +675,15 @@ a.dark-mode {
     cursor: pointer;
 }
 
-.modal-content img, 
+.modal-content img,
 .modal-content video {
-    max-width: 100%; /* Ensures media doesn't exceed modal width */
-    max-height: 80vh; /* Prevents modal from becoming too tall */
+    max-width: 100%;
+    /* Ensures media doesn't exceed modal width */
+    max-height: 80vh;
+    /* Prevents modal from becoming too tall */
     border-radius: 10px;
-    object-fit: contain; /* Ensures the entire image fits without distortion */
+    object-fit: contain;
+    /* Ensures the entire image fits without distortion */
 }
 
 .modal button:hover {
@@ -647,13 +717,15 @@ a.dark-mode {
 .edit-tools {
     display: flex;
     flex-direction: column;
-    gap: 15px; /* Adds space between the elements */
+    gap: 15px;
+    /* Adds space between the elements */
     padding: 20px;
     background-color: #f9f9f9;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     max-width: 400px;
-    margin: 0 auto; /* Center the container horizontally */
+    margin: 0 auto;
+    /* Center the container horizontally */
 }
 
 /* Style for the text input (story title) */
@@ -663,8 +735,10 @@ a.dark-mode {
     border: 1px solid #ddd;
     border-radius: 5px;
     outline: none;
-    width: 100%; /* Takes up full width of the container */
-    box-sizing: border-box; /* Ensures padding doesn't affect the width */
+    width: 100%;
+    /* Takes up full width of the container */
+    box-sizing: border-box;
+    /* Ensures padding doesn't affect the width */
 }
 
 /* Placeholder text style for the story title */
@@ -696,29 +770,35 @@ a.dark-mode {
     cursor: pointer;
     transition: background-color 0.3s ease;
     text-align: center;
-    width: 100%; /* Makes buttons full-width of the container */
+    width: 100%;
+    /* Makes buttons full-width of the container */
     box-sizing: border-box;
 }
 
 /* Button colors */
 .edit-tools button:nth-child(3) {
-    background-color: #ffa500; /* Orange for rotate */
+    background-color: #ffa500;
+    /* Orange for rotate */
     color: white;
 }
 
 .edit-tools button:nth-child(4) {
-    background-color: #66bb6a; /* Green for trim */
+    background-color: #66bb6a;
+    /* Green for trim */
     color: white;
-    cursor: not-allowed; /* Disabled state for trim */
+    cursor: not-allowed;
+    /* Disabled state for trim */
 }
 
 .edit-tools button:nth-child(5) {
-    background-color: #4CAF50; /* Green for upload */
+    background-color: #4CAF50;
+    /* Green for upload */
     color: white;
 }
 
 .edit-tools button:nth-child(6) {
-    background-color: #f44336; /* Red for cancel */
+    background-color: #f44336;
+    /* Red for cancel */
     color: white;
 }
 
@@ -780,19 +860,24 @@ a.dark-mode {
 }
 
 .navs {
-    position: absolute; /* Ensure it acts as a reference for absolute positioning */
+    position: absolute;
+    /* Ensure it acts as a reference for absolute positioning */
     width: 100%;
-    height: 50px; /* Adjust height as needed */
+    height: 50px;
+    /* Adjust height as needed */
 }
 
 /* Previous Button */
 #prevStory {
     position: absolute;
-    left: 44em; /* Set exact pixel positioning */
+    left: 44em;
+    /* Set exact pixel positioning */
     top: -7rem;
     transform: translateY(-50%);
-    width: 35px; /* Fixed width */
-    height: 35px; /* Fixed height */
+    width: 35px;
+    /* Fixed width */
+    height: 35px;
+    /* Fixed height */
     padding: 10px;
     border: none;
     border-radius: 40px;
@@ -809,11 +894,14 @@ a.dark-mode {
 /* Next Button */
 #nextStory {
     position: absolute;
-    right: 45em; /* Set exact pixel positioning */
+    right: 45em;
+    /* Set exact pixel positioning */
     top: -7rem;
     transform: translateY(-50%);
-    width: 35px; /* Fixed width */
-    height: 35px; /* Fixed height */
+    width: 35px;
+    /* Fixed width */
+    height: 35px;
+    /* Fixed height */
     padding: 10px;
     border: none;
     border-radius: 40px;
@@ -824,12 +912,16 @@ a.dark-mode {
     align-items: center;
     justify-content: center;
     z-index: 1;
-    transition: background-color 1.5s, color 1.5s; /* Added transition */
+    transition: background-color 1.5s, color 1.5s;
+    /* Added transition */
 
-}.dark-mode #nextStory {
+}
+
+.dark-mode #nextStory {
     background-color: #333;
     color: #ffffff;
-    transition: background-color 1.5s, color 1.5s; /* Added transition */
+    transition: background-color 1.5s, color 1.5s;
+    /* Added transition */
 }
 
 #nextStory:hover {
@@ -840,7 +932,8 @@ a.dark-mode {
 .dark-mode #prevStory {
     background-color: #333;
     color: #ffffff;
-    transition: background-color 1.5s, color 1.5s; /* Added transition */
+    transition: background-color 1.5s, color 1.5s;
+    /* Added transition */
 }
 
 #prevStory:hover {
@@ -874,7 +967,8 @@ a.dark-mode {
 
 
 /* Active Button States */
-button:active, .dropbtn:active {
+button:active,
+.dropbtn:active {
     transform: scale(0.98);
 }
 
@@ -886,13 +980,17 @@ button:active, .dropbtn:active {
     background-color: rgba(110, 110, 110, 0);
     color: white;
     border: none;
-    width: 35px; /* Set width */
-    height: 35px; /* Set height */
-    border-radius: 50%; /* Makes it circular */
+    width: 35px;
+    /* Set width */
+    height: 35px;
+    /* Set height */
+    border-radius: 50%;
+    /* Makes it circular */
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 18px; /* Adjust icon size */
+    font-size: 18px;
+    /* Adjust icon size */
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
@@ -904,7 +1002,7 @@ button:active, .dropbtn:active {
 /* Progress Bar */
 .progress-bar {
     position: absolute;
-    top:1em;
+    top: 1em;
     left: 50%;
     transform: translateX(-50%);
     width: 80%;
@@ -967,7 +1065,7 @@ button:active, .dropbtn:active {
     padding: 15px;
     background: #0078ff;
     font-weight: bold;
-    color:#fff
+    color: #fff
 }
 
 .messages {
@@ -990,13 +1088,16 @@ button:active, .dropbtn:active {
     align-self: flex-end;
     color: black;
     border: 1px solid #0077ff67;
-    transition: background-color 0.5s, color 0.5s; /* Added transition */
+    transition: background-color 0.5s, color 0.5s;
+    /* Added transition */
 }
+
 .dark-mode .sent {
     background-color: #707070;
     color: #fff;
 
 }
+
 .received {
     align-self: flex-start;
     border: 1px solid #ddd;
@@ -1034,64 +1135,13 @@ button:active, .dropbtn:active {
     background: #005ecb;
 }
 
-/* accounts styles */
-.profile-container {
-    max-width: 800px;
-    margin: auto;
-    background: white;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
-}
-.cover-photo {
-    width: 100%;
-    height: 250px;
-    background: url('https://via.placeholder.com/800x250') no-repeat center/cover;
-    position: relative;
-}
-.profile-picture {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    border: 1px solid #212121;
-    position: absolute;
-    bottom: -60px;
-    left: 20px;
-}
-.dark-mode .profile-picture {
-    color: #212121;
-}
-.profile-info {
-    padding: 70px 20px 20px;
-}
-.profile-info h2 {
-    margin-bottom: 5px;
-}
-.profile-info p {
-    color: gray;
-}
-.profile-buttons {
-    margin-top: 10px;
-}
-.profile-buttons button {
-    padding: 10px;
-    margin-right: 5px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-.profile-buttons .add-friend {
-    background: #0078ff;
-    color: white;
-}
-.profile-buttons .message {
-    background: #e4e6eb;
-}
+
+
 .postts {
     margin-top: 5px;
     padding: 20px;
 }
+
 .postt {
     background: white;
     padding: 15px;
@@ -1099,6 +1149,7 @@ button:active, .dropbtn:active {
     margin-bottom: 10px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
+
 .dark-mode .postt p {
     color: rgb(0, 0, 0);
 }
@@ -1147,5 +1198,75 @@ button:active, .dropbtn:active {
 }
 
 .indicator-dot.active {
-    background-color: #007BFF; /* Highlight color for the active story */
+    background-color: #007BFF;
+    /* Highlight color for the active story */
+}
+
+/* Profile Picture Styles */
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Post Creator Styles */
+.post-creator .image-preview {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 10px;
+}
+
+.post-creator .image-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.post-creator .image-preview .material-symbols-outlined {
+    font-size: 40px;
+    color: #65676B;
+}
+
+/* Story Section Styles */
+.story.create-story {
+    position: relative;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.6));
+}
+
+.story-profile-pic {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    position: absolute;
+    left: 0;
+    z-index: -1;
+}
+
+.story-add-icon {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 30px;
+    background: #1877F2;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    border: 3px solid white;
+}
+
+.default-profile-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-image: url("../assets/pfp.png");
+    background-size: cover;
+    background-position: center;
 }

@@ -11,7 +11,6 @@ const Register = () => {
     const [profilePic, setProfilePic] = useState(null);
     const [preview, setPreview] = useState(null);
     const [isVisible, setIsVisible] = useState(false);
-    const [setError] = useState("");
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -37,13 +36,16 @@ const Register = () => {
 
     const handleRegister = async (e) => {
         e.preventDefault();
-
-        if (password !== confirmPassword) {
-            alert("Passwords do not match!"); 
+        
+        if (password.length < 8) {
+            alert("❌ Password must be at least 8 characters long");
             return;
         }
-
-        setError(""); // Clear previous errors
+    
+        if (password !== confirmPassword) {
+            alert("❌ Passwords do not match");
+            return;
+        }
 
         const formData = new FormData();
         formData.append("name", name);
@@ -55,15 +57,28 @@ const Register = () => {
 
         try {
             const response = await axios.post("http://localhost:5000/api/auth/register", formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
+                headers: { "Content-Type": "multipart/form-data" },
             });
 
-            alert("Registration successful! Please login.");
+            // 1. SUCCESS ALERT
+            alert("✅ Registration successful! You can now login.");
             navigate("/");
+
         } catch (err) {
-            alert(err.response?.data?.error || "Registration failed");
+            if (err.response) {
+                // 2. DUPLICATE ACCOUNT ALERT
+                // 3. GENERAL ERROR ALERT
+                if (err.response.data.message === "REGISTRATION_FAILED") {
+                    alert("Registration failed. Please check your details and try again.");
+                }
+                else {
+                    alert("An account with this email already exists. Please login instead.");
+                }
+
+            } else {
+                // Network or other errors
+                alert("Unable to connect to server. Please check your internet connection.");
+            }
         }
     };
 

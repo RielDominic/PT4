@@ -1,14 +1,24 @@
 ﻿import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
-import DarkModeToggle from '../js/darkMode'; // Adjust the path as necessary
-import '../css/styles.css'; // Ensure the path is correct
+import DarkModeToggle from '../js/darkMode';
+import Navbar from './navbar'; // Make sure this path is correct
+import '../css/styles.css';
 
 const Dashboard = () => {
-    const [users, setUsers] = useState([]);
+    const [users, setUsers] = useState([]); // Fixed: Added state variable name
+    const [currentUser, setCurrentUser] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
+        // Fetch current user's data
+        axios.get("http://localhost:5000/api/auth/me", { withCredentials: true })
+            .then(response => setCurrentUser(response.data))
+            .catch(error => {
+                console.error("Error loading current user:", error);
+            });
+
+        // Fetch all users
         axios.get("http://localhost:5000/api/auth/users", { withCredentials: true })
             .then(response => setUsers(response.data))
             .catch(error => {
@@ -22,7 +32,7 @@ const Dashboard = () => {
     }, [navigate]);
 
     const handleLogout = async (e) => {
-        e.preventDefault(); // Prevent default behavior of anchor tag
+        e.preventDefault();
         try {
             await axios.post("http://localhost:5000/api/auth/logout", {}, { withCredentials: true });
             navigate("/");
@@ -33,61 +43,14 @@ const Dashboard = () => {
 
     return (
         <div>
-            <Navbar handleLogout={handleLogout} />
-            <StorySection />
-            <PostCreator />
+            <Navbar handleLogout={handleLogout} currentUser={currentUser} />
+            <StorySection currentUser={currentUser} />
+            <PostCreator currentUser={currentUser} />
         </div>
     );
 };
 
-const Navbar = ({ handleLogout }) => {
-    const navigate = useNavigate(); // Add this inside Navbar
-    return (
-        <div className="navbar">
-            <a href="/" className="logo">
-                <img src="/logo.png" alt="FriendZone Logo" />
-            </a>
-            <div class="search-container">
-                <input id="searchInput" class="search" type="text" placeholder="Search" />
-                <span class="material-symbols-outlined search-icon">search</span>
-                <div id="searchResults" class="dropdown"></div>
-            </div>
-
-            <div className="nav-links">
-                <a href="/dashboard"><span className="material-symbols-outlined">home</span></a>
-                <a href="/live"><span className="material-symbols-outlined">live_tv</span></a>
-                <a href="/market"><span className="material-symbols-outlined">storefront</span></a>
-                <a href="/groups"><span className="material-symbols-outlined">groups</span></a>
-            </div>
-            <div className="nav-right">
-                <div className="dropdown">
-                    <button className="dropbtn">
-                        <span className="material-symbols-outlined">notifications</span>
-                    </button>
-                    <div className="dropdown-content">
-                        <p>Notifications</p>
-                    </div>
-                </div>
-                <a href="/messages"><span className="material-symbols-outlined">message</span></a>
-                <div className="dropdown">
-                    <button className="dropbtn" onClick={() => navigate("/profile")}>
-                        <span className="material-symbols-outlined">account_circle</span>
-                    </button>
-                    <div className="dropdown-content">
-                        <a href="/settings"><span className="material-symbols-outlined">settings</span> Settings & Privacy</a>
-                        <a href="/help"><span className="material-symbols-outlined">help</span> Help & Support</a>
-                        <DarkModeToggle />
-                        <a href="/" title="Logout" onClick={handleLogout}>
-                            <span className="material-symbols-outlined">logout</span> Logout
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-};
-
-const PostCreator = () => {
+const PostCreator = ({ currentUser }) => {
     const [postText, setPostText] = useState("");
 
     const handlePost = () => {
@@ -97,42 +60,78 @@ const PostCreator = () => {
     return (
         <div className="post-creator">
             <div className="image-preview">
-                <img src="/" alt="Profile" />
+                {currentUser?.profilePic ? (
+                    <img
+                        src={`http://localhost:5000${currentUser.profilePic}`}
+                        alt="Profile"
+                        onError={(e) => {
+                            e.target.onerror = null;
+                            e.target.src = '../assets/pfp.png';
+                        }}
+                    />
+                ) : (
+                    <img className="default-profile-icon" alt="Default profile" />
+                )}
             </div>
-            <input class="captions" type="text" placeholder="What's on your mind" />
-            <hr></hr>
-            <button onClick={handlePost}><span class="material-symbols-outlined">
-                video_call
-            </span>Live Vide</button>
-            <button onClick={handlePost}><span class="material-symbols-outlined">
-                photo_library
-            </span>Photo/Video</button>
-            <button onClick={handlePost}><span class="material-symbols-outlined">
-                show_chart
-            </span>Activity</button>
+            <input
+                className="captions"
+                type="text"
+                placeholder="What's on your mind"
+                value={postText}
+                onChange={(e) => setPostText(e.target.value)}
+            />
+            <button
+                className="post-button"
+                onClick={handlePost}
+                disabled={!postText.trim()}
+            >
+                <span className="material-symbols-outlined">send</span>
+            </button>
+            <hr />
+            <button onClick={handlePost}>
+                <span className="material-symbols-outlined">video_call</span>Live Video
+            </button>
+            <button onClick={handlePost}>
+                <span className="material-symbols-outlined">photo_library</span>Photo/Video
+            </button>
+            <button onClick={handlePost}>
+                <span className="material-symbols-outlined">show_chart</span>Activity
+            </button>
         </div>
     );
 };
 
-const StorySection = ({ openStoryUpload = () => { }, prevStory = () => { }, nextStory = () => { } }) => {
+const StorySection = ({ currentUser }) => {
     return (
-        <div>
-            {/* Story Section */}
+        <div className="story-section-container">
             <div className="stories-container" id="storiesContainer">
-                <div className="story create-story" onClick={openStoryUpload}></div>
+                <div className="story create-story">
+                    <div className="story-profile-container">
+                        {currentUser?.profilePic ? (
+                            <img
+                                src={`http://localhost:5000${currentUser.profilePic}`}
+                                alt="Your profile"
+                                className="story-user-profile"
+                                onError={(e) => {
+                                    e.target.onerror = null;
+                                    e.target.src = '/default-profile.png';
+                                }}
+                            />
+                        ) : (
+                            <div className="default-profile-icon"></div>
+                        )}
+                    </div>
+                    <div className="story-add-icon">+</div>
+                </div>
             </div>
-
-            {/* Navigation Buttons */}
             <div className="navs">
-                <button id="prevStory" onClick={prevStory}>
+                <button id="prevStory">
                     <span className="material-symbols-outlined">chevron_left</span>
                 </button>
-                <button id="nextStory" onClick={nextStory}>
+                <button id="nextStory">
                     <span className="material-symbols-outlined">chevron_right</span>
                 </button>
             </div>
-
-            {/* Posts Container */}
             <div className="posts-container" id="postsContainer"></div>
         </div>
     );
